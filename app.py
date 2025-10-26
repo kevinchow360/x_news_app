@@ -14,6 +14,17 @@ HEADERS = {"Authorization": f"Bearer {X_BEARER_TOKEN}"} if X_BEARER_TOKEN else {
 # --- Flask app ---
 app = Flask(__name__)
 
+
+@app.route("/")
+def home():
+    return jsonify({"message": "X News App is running!"})
+
+# Example webhook route
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    return jsonify({"status": "received"})
+
+
 # --- Fetch top X news posts ---
 def fetch_x_chatter(ticker, minutes=2880, max_posts=4):  # 48h
     end_time = datetime.utcnow()
